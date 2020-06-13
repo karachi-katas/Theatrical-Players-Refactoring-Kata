@@ -18,15 +18,11 @@ public class StatementPrinter {
             switch (play.type) {
                 case "tragedy":
                     thisAmount = 40000;
-                    if (perf.audience > 30) {
-                        thisAmount += 1000 * (perf.audience - 30);
-                    }
+                    thisAmount += perf.getTragedyAdditionalAmount();
                     break;
                 case "comedy":
                     thisAmount = 30000;
-                    if (perf.audience > 20) {
-                        thisAmount += 10000 + 500 * (perf.audience - 20);
-                    }
+                    thisAmount += perf.getComedyAdditionalAmount();
                     thisAmount += 300 * perf.audience;
                     break;
                 default:
