@@ -28,22 +28,10 @@ public class StatementPrinter {
 
             switch (play.type) {
                 case "tragedy":
-                    thisAmount = TRAGEDY_BASE_AMOUNT;
-                    if (perf.audience > TRAGEDY_AUDIENCE_THRESHOLD) {
-                        thisAmount += TRAGEDY_FIXED_SURCHARGE_FOR_ADDITIONAL_AUDIENCE
-                                + TRAGEDY_PRICE_PER_ADDITIONAL_PERSON
-                                * (perf.audience - TRAGEDY_AUDIENCE_THRESHOLD);
-                    }
-                    thisAmount += TRAGEDY_PRICE_PER_PERSON * perf.audience;
+                    thisAmount = getTragedyAmount(perf);
                     break;
                 case "comedy":
-                    thisAmount = COMEDY_BASE_AMOUNT;
-                    if (perf.audience > COMEDY_AUDIENCE_THRESHOLD) {
-                        thisAmount += COMEDY_FIXED_SURCHARGE_FOR_ADDITIONAL_AUDIENCE
-                                + COMEDY_PRICE_PER_ADDITIONAL_PERSON
-                                * (perf.audience - COMEDY_AUDIENCE_THRESHOLD);
-                    }
-                    thisAmount += COMEDY_PRICE_PER_PERSON * perf.audience;
+                    thisAmount = getComedyAmount(perf);
                     break;
                 default:
                     throw new Error("unknown type: ${play.type}");
@@ -61,6 +49,26 @@ public class StatementPrinter {
         result.append(String.format("Amount owed is %s\n", numberFormat.format(totalAmount / 100)));
         result.append(String.format("You earned %s credits\n", volumeCredits));
         return result.toString();
+    }
+
+    private int getComedyAmount(Performance perf) {
+        return getAmount(perf, COMEDY_BASE_AMOUNT, COMEDY_AUDIENCE_THRESHOLD, COMEDY_FIXED_SURCHARGE_FOR_ADDITIONAL_AUDIENCE, COMEDY_PRICE_PER_ADDITIONAL_PERSON, COMEDY_PRICE_PER_PERSON);
+    }
+
+    private int getAmount(Performance perf, int comedyBaseAmount, int comedyAudienceThreshold, int comedyFixedSurchargeForAdditionalAudience, int comedyPricePerAdditionalPerson, int comedyPricePerPerson) {
+        int thisAmount;
+        thisAmount = comedyBaseAmount;
+        if (perf.audience > comedyAudienceThreshold) {
+            thisAmount += comedyFixedSurchargeForAdditionalAudience
+                    + comedyPricePerAdditionalPerson
+                    * (perf.audience - comedyAudienceThreshold);
+        }
+        thisAmount += comedyPricePerPerson * perf.audience;
+        return thisAmount;
+    }
+
+    private int getTragedyAmount(Performance perf) {
+        return getAmount(perf, TRAGEDY_BASE_AMOUNT, TRAGEDY_AUDIENCE_THRESHOLD, TRAGEDY_FIXED_SURCHARGE_FOR_ADDITIONAL_AUDIENCE, TRAGEDY_PRICE_PER_ADDITIONAL_PERSON, TRAGEDY_PRICE_PER_PERSON);
     }
 
 }
