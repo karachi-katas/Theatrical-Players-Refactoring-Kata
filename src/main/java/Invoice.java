@@ -8,13 +8,16 @@ public class Invoice {
 
     public String customer;
     public List<Performance> performances;
+    Map<String, Play> plays;
 
-    public Invoice(String customer, List<Performance> performances) {
+    public Invoice(String customer, List<Performance> performances,
+            Map<String, Play> plays) {
         this.customer = customer;
         this.performances = performances;
+        this.plays = plays;
     }
 
-    public String print(Map<String, Play> plays) {
+    public String print() {
         int totalAmount = 0;
         int volumeCredits = 0;
         StringBuilder result = new StringBuilder(String.format("Statement for %s\n", customer));
@@ -22,7 +25,7 @@ public class Invoice {
         NumberFormat numberFormat = NumberFormat.getCurrencyInstance(Locale.US);
 
         for (Performance perf : performances) {
-            Play play = plays.get(perf.playID);
+            Play play = this.plays.get(perf.playID);
             int thisAmount = play.getAmount(perf.audience);
             volumeCredits += play.getVolumeCredits(perf.audience);
 

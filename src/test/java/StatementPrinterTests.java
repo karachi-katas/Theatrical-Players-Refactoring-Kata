@@ -22,9 +22,9 @@ public class StatementPrinterTests {
                 new Performance("hamlet", 55),
                 new Performance("as-like", 35),
                 new Performance("othello", 40)
-        ));
+        ), plays);
 
-        String result = invoice.print(plays);
+        String result = invoice.print();
 
         verify(result);
     }
@@ -39,10 +39,10 @@ public class StatementPrinterTests {
 
         Invoice invoice = new Invoice("BigCo", Arrays.asList(
                 new Performance("henry-v", 53),
-                new Performance("as-like", 55)));
+                new Performance("as-like", 55)),plays);
 
         Assert.assertThrows(Error.class, () -> {
-            invoice.print(plays);
+            invoice.print();
         });
     }
 }
