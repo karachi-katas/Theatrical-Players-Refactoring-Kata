@@ -2,11 +2,11 @@ package Play;
 
 public abstract class Play {
 
-    protected int baseAmount = 30000;
-    protected int audienceThreshold = 20;
-    protected int fixedSurchargeForAdditionalPerson = 10000;
-    protected int pricePerPerson = 300;
-    protected int pricePerAdditionalPerson = 500;
+    protected int baseAmount;
+    protected int audienceThreshold;
+    protected int fixedSurchargeForAdditionalPerson;
+    protected int pricePerPerson;
+    protected int pricePerAdditionalPerson;
 
 
     public String name;
