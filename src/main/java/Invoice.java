@@ -1,21 +1,29 @@
+import sun.misc.Perf;
+
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 
 public class Invoice {
 
-    public String customer;
-    public List<Performance> performances;
+    private String customer;
+    private List<Performance> performances;
 
-//    private int totalAmount;
-//    private int volumeCredits;
+    private final NumberFormat numberFormat = NumberFormat.getCurrencyInstance(Locale.US);
+
+    private int totalAmount;
+    private int volumeCredits;
+
+    private String printableResult;
 
     public Invoice(String customer, List<Performance> performances) {
         this.customer = customer;
         this.performances = performances;
 
-//        totalAmount = calculateTotalAmount();
-//        volumeCredits = calculateVolumeCredits();
+        totalAmount = calculateTotalAmount();
+        volumeCredits = calculateVolumeCredits();
+
+        printableResult = generatePrintableString();
     }
 
     private int calculateTotalAmount() {
@@ -32,27 +40,20 @@ public class Invoice {
                 .sum();
     }
 
-    public String print() {
+    private void processPerformance(Performance performance, StringBuilder result) {
+        Play play = PlaysRepository.getInstance().findPlayById(performance.getPlayID());
+        result.append(String.format("  %s: %s (%s seats)\n", play.name, numberFormat.format(performance.getAmount() / 100), performance.getAudience()));
+    }
+
+    private String generatePrintableString() {
         StringBuilder result = new StringBuilder(String.format("Statement for %s\n", this.customer));
-        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(Locale.US);
-
-        int totalAmount = 0;
-        int volumeCredits = 0;
-
-        for (Performance perf : this.performances) {
-            Play play = PlaysRepository.getInstance().findPlayById(perf.getPlayID());
-
-            int thisAmount = perf.getAmount();
-
-            volumeCredits += perf.getCredits();
-            totalAmount += thisAmount;
-
-            result.append(String.format("  %s: %s (%s seats)\n", play.name, numberFormat.format(thisAmount / 100), perf.getAudience()));
-        }
-
+        performances.forEach(performance -> processPerformance(performance, result));
         result.append(String.format("Amount owed is %s\n", numberFormat.format(totalAmount / 100)));
         result.append(String.format("You earned %s credits\n", volumeCredits));
-
         return result.toString();
+    }
+
+    public String print() {
+        return printableResult;
     }
 }

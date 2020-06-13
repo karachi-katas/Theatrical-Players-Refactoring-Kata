@@ -35,11 +35,11 @@ public class StatementPrinterTests {
         playRepo.addPlay("henry-v", new Play("Henry V", "history"));
         playRepo.addPlay("as-like", new Play("As You Like It", "pastoral"));
 
-        Invoice invoice = new Invoice("BigCo", Arrays.asList(
+        Assert.assertThrows(Error.class, () -> {
+            Invoice invoice = new Invoice("BigCo", Arrays.asList(
                 new Performance("henry-v", 53),
                 new Performance("as-like", 55)));
 
-        Assert.assertThrows(Error.class, () -> {
             invoice.print();
         });
     }
