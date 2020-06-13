@@ -2,13 +2,6 @@ package Play;
 
 public abstract class Play {
 
-    protected int baseAmount = 30000;
-    protected int audienceThreshold = 20;
-    protected int fixedSurchargeForAdditionalPerson = 10000;
-    protected int pricePerPerson = 300;
-    protected int pricePerAdditionalPerson = 500;
-
-
     public String name;
     public String type;
 
@@ -27,11 +20,10 @@ public abstract class Play {
         return new BadPlay(name, type);
     }
 
-    public int getAmount(int audience) {
-        return getAmountElaborate(audience);
-    }
+    public abstract int getAmount(int audience);
 
-    private int getAmountElaborate(int audience) {
+    protected int getAmount(int audience, int baseAmount, int audienceThreshold,
+            int fixedSurchargeForAdditionalPerson, int pricePerAdditionalPerson, int pricePerPerson) {
         int thisAmount;
         thisAmount = baseAmount;
         if (audience > audienceThreshold) {
@@ -42,5 +34,4 @@ public abstract class Play {
         thisAmount += pricePerPerson * audience;
         return thisAmount;
     }
-
 }

@@ -3,14 +3,17 @@ package Play;
 public class ComedyPlay extends Play {
 
     protected ComedyPlay(String name, String type) {
-
         super(name, type);
+    }
 
-        super.baseAmount = 30000;
-        super.audienceThreshold = 20;
-        super.fixedSurchargeForAdditionalPerson = 10000;
-        super.pricePerPerson = 300;
-        super.pricePerAdditionalPerson = 500;
-
+    @Override
+    public int getAmount(int audience) {
+        return super.getAmount(
+                audience,
+                30000,
+                20,
+                10000,
+                500,
+                300);
     }
 }
