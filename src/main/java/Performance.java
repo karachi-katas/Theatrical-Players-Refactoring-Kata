@@ -1,7 +1,4 @@
-import AmountStrategies.InvoiceCalculator;
-import AmountStrategies.ComedyPlayCalculator;
-import AmountStrategies.TragedyPlayCalculator;
-import AmountStrategies.UnknownPlayCalculator;
+import AmountStrategies.*;
 
 public class Performance {
 
@@ -13,19 +10,8 @@ public class Performance {
         this.playID = playID;
         this.audience = audience;
 
-        switch (PlaysRepository.getInstance().findPlayById(playID).type) {
-            case "comedy":
-                invoiceCalculator = new ComedyPlayCalculator();
-                break;
-
-            case "tragedy":
-                invoiceCalculator = new TragedyPlayCalculator();
-                break;
-
-            default:
-                invoiceCalculator = new UnknownPlayCalculator();
-                break;
-        }
+        String playType = PlaysRepository.getInstance().findPlayById(playID).type;
+        invoiceCalculator = AmountStrategyFactory.getAmountCalculatorStrategy(playType);
     }
 
     public int getAmount() {
