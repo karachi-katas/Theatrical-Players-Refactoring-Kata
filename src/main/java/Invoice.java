@@ -36,7 +36,7 @@ public class Invoice {
                     INVOICE_LINE, perf.play.name, NUMBER_FORMAT.format(thisAmount / 100), perf.audience));
             totalAmount += thisAmount;
         }
-        result.append(String.format(INVOICE_FOOTER, NUMBER_FORMAT.format(performancesClass.getTotalAmount() / 100), volumeCredits));
+        result.append(String.format(INVOICE_FOOTER, NUMBER_FORMAT.format(performancesClass.getTotalAmount() / 100), performancesClass.getTotalVolumeCredits()));
         return result.toString();
     }
 }

@@ -10,4 +10,8 @@ public class Performances {
     public int getTotalAmount() {
         return performances.stream().mapToInt(Performance::getAmount).sum();
     }
+
+    public int getTotalVolumeCredits() {
+        return performances.stream().mapToInt(Performance::getVolumeCredits).sum();
+    }
 }
