@@ -16,4 +16,12 @@ public class Performance {
         this.play = play;
         this.audience = audience;
     }
+
+    public int getAmount() {
+        return play.getAmount(audience);
+    }
+
+    public int getVolumeCredits() {
+        return play.getVolumeCredits(audience);
+    }
 }

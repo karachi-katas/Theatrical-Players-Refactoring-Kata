@@ -1,10 +1,13 @@
-import Play.Play;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 public class Invoice {
+
+    public static final String INVOICE_HEADER = "Statement for %s\n";
+    public static final String INVOICE_LINE = "  %s: %s (%s seats)\n";
+    public static final String INVOICE_FOOTER_1 = "Amount owed is %s\n";
+    public static final String INVOICE_FOOTER_2 = "You earned %s credits\n";
 
     public String customer;
     public List<Performance> performances;
@@ -17,21 +20,21 @@ public class Invoice {
     public String print() {
         int totalAmount = 0;
         int volumeCredits = 0;
-        StringBuilder result = new StringBuilder(String.format("Statement for %s\n", customer));
+        StringBuilder result = new StringBuilder(String.format(INVOICE_HEADER, customer));
 
         NumberFormat numberFormat = NumberFormat.getCurrencyInstance(Locale.US);
 
         for (Performance perf : performances) {
-            Play play = perf.play;
-            int thisAmount = play.getAmount(perf.audience);
-            volumeCredits += play.getVolumeCredits(perf.audience);
+            int thisAmount = perf.getAmount();
+            volumeCredits += perf.getVolumeCredits();
 
             // print line for this order
-            result.append(String.format("  %s: %s (%s seats)\n", play.name, numberFormat.format(thisAmount / 100), perf.audience));
+            result.append(String.format(
+                    INVOICE_LINE, perf.play.name, numberFormat.format(thisAmount / 100), perf.audience));
             totalAmount += thisAmount;
         }
-        result.append(String.format("Amount owed is %s\n", numberFormat.format(totalAmount / 100)));
-        result.append(String.format("You earned %s credits\n", volumeCredits));
+        result.append(String.format(INVOICE_FOOTER_1, numberFormat.format(totalAmount / 100)));
+        result.append(String.format(INVOICE_FOOTER_2, volumeCredits));
         return result.toString();
     }
 }
