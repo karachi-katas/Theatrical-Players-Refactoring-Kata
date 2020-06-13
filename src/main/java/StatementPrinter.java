@@ -4,6 +4,15 @@ import java.util.Map;
 
 public class StatementPrinter {
 
+    public static final int TRAGEDY_BASE_AMOUNT = 40000;
+    public static final int TRAGEDY_AUDIENCE_THRESHOLD = 30;
+    public static final int TRAGEDY_PRICE_PER_ADDITIONAL_PERSON = 1000;
+    public static final int COMEDY_BASE_AMOUNT = 30000;
+    public static final int COMEDY_AUDIENCE_THRESHOLD = 20;
+    public static final int COMEDY_FIXED_SURCHARGE_FOR_ADDITIONAL_AUDIENCE = 10000;
+    public static final int COMEDY_PRICE_PER_ADDITIONAL_PERSON = 500;
+    public static final int COMEDY_PRICE_PER_PERSON = 300;
+
     public String print(Invoice invoice, Map<String, Play> plays) {
         int totalAmount = 0;
         int volumeCredits = 0;
@@ -17,17 +26,17 @@ public class StatementPrinter {
 
             switch (play.type) {
                 case "tragedy":
-                    thisAmount = 40000;
-                    if (perf.audience > 30) {
-                        thisAmount += 1000 * (perf.audience - 30);
+                    thisAmount = TRAGEDY_BASE_AMOUNT;
+                    if (perf.audience > TRAGEDY_AUDIENCE_THRESHOLD) {
+                        thisAmount += TRAGEDY_PRICE_PER_ADDITIONAL_PERSON * (perf.audience - TRAGEDY_AUDIENCE_THRESHOLD);
                     }
                     break;
                 case "comedy":
-                    thisAmount = 30000;
-                    if (perf.audience > 20) {
-                        thisAmount += 10000 + 500 * (perf.audience - 20);
+                    thisAmount = COMEDY_BASE_AMOUNT;
+                    if (perf.audience > COMEDY_AUDIENCE_THRESHOLD) {
+                        thisAmount += COMEDY_FIXED_SURCHARGE_FOR_ADDITIONAL_AUDIENCE + COMEDY_PRICE_PER_ADDITIONAL_PERSON * (perf.audience - COMEDY_AUDIENCE_THRESHOLD);
                     }
-                    thisAmount += 300 * perf.audience;
+                    thisAmount += COMEDY_PRICE_PER_PERSON * perf.audience;
                     break;
                 default:
                     throw new Error("unknown type: ${play.type}");
