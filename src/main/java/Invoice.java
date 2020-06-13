@@ -14,10 +14,13 @@ public class Invoice {
 
     public String customer;
     public List<Performance> performances;
+    Performances performancesClass;
 
     public Invoice(String customer, List<Performance> performances) {
         this.customer = customer;
         this.performances = performances;
+        performancesClass = new Performances(performances);
+
     }
 
     public String print() {
@@ -33,7 +36,7 @@ public class Invoice {
                     INVOICE_LINE, perf.play.name, NUMBER_FORMAT.format(thisAmount / 100), perf.audience));
             totalAmount += thisAmount;
         }
-        result.append(String.format(INVOICE_FOOTER, NUMBER_FORMAT.format(totalAmount / 100), volumeCredits));
+        result.append(String.format(INVOICE_FOOTER, NUMBER_FORMAT.format(performancesClass.getTotalAmount() / 100), volumeCredits));
         return result.toString();
     }
 }
