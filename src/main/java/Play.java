@@ -14,7 +14,7 @@ public class Play {
     public String name;
     public String type;
 
-    private Play(String name, String type) {
+    protected Play(String name, String type) {
         this.name = name;
         this.type = type;
     }
