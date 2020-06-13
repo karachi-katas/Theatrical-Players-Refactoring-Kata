@@ -22,17 +22,11 @@ public class Play {
         if (type == "comedy"){
             return new ComedyPlay(name, type);
         }
-        return new Play(name, type);
+        return new BadPlay(name, type);
     }
 
     int getAmount(Performance perf) {
-        switch (type) {
-            case "tragedy":
-            case "comedy":
-                return getAmount(perf.audience);
-            default:
-                throw new Error("unknown type: ${play.type}");
-        }
+        return getAmount(perf.audience);
     }
 
 
