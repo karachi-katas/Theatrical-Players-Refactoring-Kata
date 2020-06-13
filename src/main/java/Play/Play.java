@@ -35,4 +35,9 @@ public abstract class Play {
         return thisAmount;
     }
 
+    public int getVolumeCredits(int audience) {
+        int volumeCredits = Math.max(audience - 30, 0);
+        if ("comedy".equals(type)) volumeCredits += Math.floor(audience / 5);
+        return volumeCredits;
+    }
 }
