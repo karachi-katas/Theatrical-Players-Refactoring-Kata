@@ -19,6 +19,9 @@ public class Play {
         if (type == "tragedy") {
             return new TragedyPlay(name, type);
         }
+        if (type == "comedy"){
+            return new ComedyPlay(name, type);
+        }
         return new Play(name, type);
     }
 
