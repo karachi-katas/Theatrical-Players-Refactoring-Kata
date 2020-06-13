@@ -1,3 +1,5 @@
+package Play;
+
 public class BadPlay extends Play {
 
     protected BadPlay(String name, String type) {

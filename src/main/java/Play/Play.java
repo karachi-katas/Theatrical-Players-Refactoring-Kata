@@ -1,4 +1,6 @@
-public class Play {
+package Play;
+
+public abstract class Play {
 
     protected int baseAmount = 30000;
     protected int audienceThreshold = 20;

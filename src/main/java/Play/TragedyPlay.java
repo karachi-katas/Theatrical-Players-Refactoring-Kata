@@ -1,3 +1,5 @@
+package Play;
+
 public class TragedyPlay extends Play {
 
     protected TragedyPlay(String name, String type) {
