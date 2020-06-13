@@ -25,7 +25,7 @@ public class Invoice {
         NumberFormat numberFormat = NumberFormat.getCurrencyInstance(Locale.US);
 
         for (Performance perf : performances) {
-            Play play = this.plays.get(perf.playID);
+            Play play = perf.play;
             int thisAmount = play.getAmount(perf.audience);
             volumeCredits += play.getVolumeCredits(perf.audience);
 

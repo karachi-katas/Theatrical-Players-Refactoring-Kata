@@ -19,9 +19,9 @@ public class StatementPrinterTests {
         }};
 
         Invoice invoice = new Invoice("BigCo", Arrays.asList(
-                new Performance("hamlet", 55),
-                new Performance("as-like", 35),
-                new Performance("othello", 40)
+                new Performance(plays.get("hamlet"), 55),
+                new Performance(plays.get("as-like"), 35),
+                new Performance(plays.get("othello"), 40)
         ), plays);
 
         String result = invoice.print();
@@ -38,8 +38,9 @@ public class StatementPrinterTests {
         }};
 
         Invoice invoice = new Invoice("BigCo", Arrays.asList(
-                new Performance("henry-v", 53),
-                new Performance("as-like", 55)),plays);
+                new Performance(plays.get("henry-v"), 53),
+                new Performance(plays.get("as-like"), 55))
+                ,plays);
 
         Assert.assertThrows(Error.class, () -> {
             invoice.print();

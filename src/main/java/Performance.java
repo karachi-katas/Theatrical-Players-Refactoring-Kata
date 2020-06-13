@@ -12,6 +12,7 @@ public class Performance {
     }
 
     public Performance(Play play, int audience) {
+        playID = play.name;
         this.play = play;
         this.audience = audience;
     }
