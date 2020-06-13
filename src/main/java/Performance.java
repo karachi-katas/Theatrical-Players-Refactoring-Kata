@@ -7,6 +7,4 @@ public class Performance {
         this.playID = playID;
         this.audience = audience;
     }
-
-
 }

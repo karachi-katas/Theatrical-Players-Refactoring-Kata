@@ -15,17 +15,15 @@ public class StatementPrinter {
             Play play = plays.get(perf.playID);
             int thisAmount = 0;
 
-
-
             switch (play.type) {
                 case "tragedy":
-                    thisAmount = play.getBaseAmount();
+                    thisAmount = 40000;
                     if (perf.audience > 30) {
                         thisAmount += 1000 * (perf.audience - 30);
                     }
                     break;
                 case "comedy":
-                    thisAmount = play.getBaseAmount();
+                    thisAmount = 30000;
                     if (perf.audience > 20) {
                         thisAmount += 10000 + 500 * (perf.audience - 20);
                     }
