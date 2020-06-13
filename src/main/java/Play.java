@@ -20,6 +20,9 @@ public class Play {
     }
 
     public static Play create(String name, String type) {
+        if (type == "tragedy") {
+            return new TragedyPlay(name, type);
+        }
         return new Play(name, type);
     }
 
