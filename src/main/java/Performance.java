@@ -9,11 +9,11 @@ public class Performance {
     private int audience;
     private AmountCalculator amountCalculator;
 
-    public Performance(String playID, int audience, String type) {
+    public Performance(String playID, int audience) {
         this.playID = playID;
         this.audience = audience;
 
-        switch (type) {
+        switch (PlaysRepository.getInstance().findPlayById(playID).type) {
             case "comedy":
                 amountCalculator = new ComedyPlayCalculator();
                 break;

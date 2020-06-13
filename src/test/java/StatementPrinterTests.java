@@ -11,39 +11,39 @@ public class StatementPrinterTests {
 
     @Test
     public void exampleStatement() {
-        Map<String, Play> plays = new HashMap<String, Play>() {{
-            put("hamlet", new Play("Hamlet", "tragedy"));
-            put("as-like", new Play("As You Like It", "comedy"));
-            put("othello", new Play("Othello", "tragedy"));
-        }};
+
+        // Setup
+        PlaysRepository playRepo = PlaysRepository.getInstance();
+        playRepo.addPlay("hamlet", new Play("Hamlet", "tragedy"));
+        playRepo.addPlay("as-like", new Play("As You Like It", "comedy"));
+        playRepo.addPlay("othello", new Play("Othello", "tragedy"));
 
         Invoice invoice = new Invoice("BigCo", Arrays.asList(
-                new Performance("hamlet", 55, "tragedy"),
-                new Performance("as-like", 35, "comedy"),
-                new Performance("othello", 40, "tragedy")
+                new Performance("hamlet", 55),
+                new Performance("as-like", 35),
+                new Performance("othello", 40)
         ));
 
         StatementPrinter statementPrinter = new StatementPrinter();
-        String result = statementPrinter.print(invoice, plays);
+        String result = statementPrinter.print(invoice);
 
         verify(result);
     }
 
     @Test
     public void statementWithNewPlayTypes() {
-
-        Map<String, Play> plays = new HashMap<String, Play>() {{
-            put("henry-v", new Play("Henry V", "history"));
-            put("as-like", new Play("As You Like It", "pastoral"));
-        }};
+        // Setup
+        PlaysRepository playRepo = PlaysRepository.getInstance();
+        playRepo.addPlay("henry-v", new Play("Henry V", "history"));
+        playRepo.addPlay("as-like", new Play("As You Like It", "pastoral"));
 
         Invoice invoice = new Invoice("BigCo", Arrays.asList(
-                new Performance("henry-v", 53, "history"),
-                new Performance("as-like", 55, "pastoral")));
+                new Performance("henry-v", 53),
+                new Performance("as-like", 55)));
 
         StatementPrinter statementPrinter = new StatementPrinter();
         Assert.assertThrows(Error.class, () -> {
-            statementPrinter.print(invoice, plays);
+            statementPrinter.print(invoice);
         });
     }
 }

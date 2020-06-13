@@ -4,15 +4,15 @@ import java.util.Map;
 
 public class StatementPrinter {
 
-    public String print(Invoice invoice, Map<String, Play> plays) {
+    public String print(Invoice invoice) {
         int totalAmount = 0;
         int volumeCredits = 0;
         StringBuilder result = new StringBuilder(String.format("Statement for %s\n", invoice.customer));
 
         NumberFormat numberFormat = NumberFormat.getCurrencyInstance(Locale.US);
-
+        PlaysRepository playRepo = PlaysRepository.getInstance();
         for (Performance perf : invoice.performances) {
-            Play play = plays.get(perf.getPlayID());
+            Play play = playRepo.findPlayById(perf.getPlayID());
 
             int thisAmount = perf.getAmount();
 
