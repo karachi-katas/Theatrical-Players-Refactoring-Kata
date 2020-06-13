@@ -1,4 +1,4 @@
-public abstract class Play {
+public abstract class Play implements Printable {
 
     public String name;
     public String type;
@@ -12,5 +12,10 @@ public abstract class Play {
 
     public int volumeCreditBasedOnAudience(int audience) {
         return Math.max(audience - 30, 0);
+    }
+
+    @Override
+    public String print() {
+        return name;
     }
 }
