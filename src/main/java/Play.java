@@ -24,19 +24,14 @@ public class Play {
     }
 
     int getAmount(Performance perf) {
-        int thisAmount = 0;
-
         switch (type) {
             case "tragedy":
-                thisAmount = getTragedyAmount(perf.audience);
-                break;
+                return getTragedyAmount(perf.audience);
             case "comedy":
-                thisAmount = getComedyAmount(perf.audience);
-                break;
+                return getComedyAmount(perf.audience);
             default:
                 throw new Error("unknown type: ${play.type}");
         }
-        return thisAmount;
     }
 
     private int getComedyAmount(int audience) {
