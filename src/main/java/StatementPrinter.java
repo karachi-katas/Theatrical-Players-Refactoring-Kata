@@ -6,24 +6,19 @@ import java.util.Map;
 
 public class StatementPrinter {
 
-    public String print(Invoice invoice, Map<String, Play> plays) {
-        int totalAmount = 0;
-        int volumeCredits = 0;
+    public String print(Invoice invoice) {
+
         StringBuilder result = new StringBuilder(String.format("Statement for %s\n", invoice.customer));
 
+        invoice.func(result);
+
         NumberFormat numberFormat = NumberFormat.getCurrencyInstance(Locale.US);
-        for (Performance perf : invoice.performances) {
-            int thisAmount = 0;
-            Play play = plays.get(perf.playID);
-            thisAmount += perf.calculatePerformanceAmount(play);
-            // add volume credits
-            volumeCredits += play.getVolumeCredits(perf.audience);
-            result.append(String.format("  %s: %s (%s seats)\n", play.name, numberFormat.format(thisAmount / 100), perf.audience));
-            totalAmount += thisAmount;
-        }
-        result.append(String.format("Amount owed is %s\n", numberFormat.format(totalAmount / 100)));
-        result.append(String.format("You earned %s credits\n", volumeCredits));
+
+        result.append(String.format("Amount owed is %s\n", numberFormat.format(invoice.totalAmount / 100)));
+        result.append(String.format("You earned %s credits\n", invoice.volumeCredits));
         return result.toString();
     }
+
+
 
 }
