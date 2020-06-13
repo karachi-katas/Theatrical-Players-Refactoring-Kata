@@ -1,4 +1,5 @@
 import Play.Play;
+import invoice.Invoice;
 import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
@@ -6,6 +7,8 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import performance.Performance;
+import performance.Performances;
 
 import static org.approvaltests.Approvals.verify;
 

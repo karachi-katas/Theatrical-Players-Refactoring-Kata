@@ -1,3 +1,7 @@
+package performance;
+
+import invoice.InvoicePrinter;
+import invoice.Invoiceable;
 import java.util.List;
 
 public class Performances implements Invoiceable {

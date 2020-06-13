@@ -1,7 +1,10 @@
+package invoice;
+
 import Play.Play;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
+import performance.Performance;
 
 public class InvoicePrinter {
 
@@ -13,7 +16,7 @@ public class InvoicePrinter {
 
     public String printFor(Play play, int audience, int amount) {
         return String.format(INVOICE_LINE,
-                play.name,
+                play.print(this),
                 NUMBER_FORMAT.format(amount / 100),
                 audience);
     }
@@ -22,7 +25,7 @@ public class InvoicePrinter {
         StringBuilder result = new StringBuilder();
 
         for (Performance perf : performances) {
-            result.append(perf.print(new InvoicePrinter()));
+            result.append(perf.print(this));
         }
 
         result.append(String.format(INVOICE_FOOTER,
@@ -30,5 +33,9 @@ public class InvoicePrinter {
                 totalVolumeCredits));
 
         return result.toString();
+    }
+
+    public String printFor(String playName) {
+        return playName;
     }
 }

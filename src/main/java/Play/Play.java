@@ -1,6 +1,9 @@
 package Play;
 
-public abstract class Play {
+import invoice.InvoicePrinter;
+import invoice.Invoiceable;
+
+public abstract class Play implements Invoiceable {
 
     public String name;
     public String type;
@@ -39,5 +42,10 @@ public abstract class Play {
         int volumeCredits = Math.max(audience - 30, 0);
         if ("comedy".equals(type)) volumeCredits += Math.floor(audience / 5);
         return volumeCredits;
+    }
+
+    @Override
+    public String print(InvoicePrinter invoicePrinter) {
+        return invoicePrinter.printFor(name);
     }
 }

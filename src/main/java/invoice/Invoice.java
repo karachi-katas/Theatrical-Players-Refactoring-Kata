@@ -1,5 +1,6 @@
-import java.text.NumberFormat;
-import java.util.Locale;
+package invoice;
+
+import performance.Performances;
 
 public class Invoice {
 
