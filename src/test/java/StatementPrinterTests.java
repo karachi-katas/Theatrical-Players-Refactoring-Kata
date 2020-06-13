@@ -16,9 +16,9 @@ public class StatementPrinterTests {
     public void exampleStatement() {
 
         Invoice invoice = new Invoice("BigCo", Arrays.asList(
-                new Performance(new Tragedy("Hamlet", "tragedy"), 55),
-                new Performance(new Comedy("As You Like It", "comedy"), 35),
-                new Performance(new Tragedy("Othello", "tragedy"), 40)
+                new Performance(new Tragedy("Hamlet"), 55),
+                new Performance(new Comedy("As You Like It"), 35),
+                new Performance(new Tragedy("Othello"), 40)
         ));
 
         StatementPrinter statementPrinter = new StatementPrinter();

@@ -1,7 +1,6 @@
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import play.Play;
 
 public class Invoice {
