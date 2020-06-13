@@ -1,3 +1,5 @@
+package play;
+
 public class Play {
 
     public String name;
