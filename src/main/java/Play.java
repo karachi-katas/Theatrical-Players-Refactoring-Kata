@@ -25,11 +25,6 @@ public class Play {
         return new BadPlay(name, type);
     }
 
-    int getAmount(Performance perf) {
-        return getAmount(perf.audience);
-    }
-
-
     public int getAmount(int audience) {
         int thisAmount;
         thisAmount = baseAmount;

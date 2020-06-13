@@ -13,7 +13,7 @@ public class StatementPrinter {
 
         for (Performance perf : invoice.performances) {
             Play play = plays.get(perf.playID);
-            int thisAmount = play.getAmount(perf);
+            int thisAmount = play.getAmount(perf.audience);
 
             // add volume credits
             volumeCredits += Math.max(perf.audience - 30, 0);

@@ -5,7 +5,7 @@ public class BadPlay extends Play {
     }
 
     @Override
-    int getAmount(Performance perf) {
+    public int getAmount(int audience) {
         throw new Error("unknown type: ${play.type}");
     }
 }
