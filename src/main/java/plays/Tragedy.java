@@ -12,4 +12,9 @@ public class Tragedy extends Play {
 
         return amount;
     }
+
+    @Override
+    public int calculateVolumeCredit(int audience) {
+        return Math.max(audience - 30, 0);
+    }
 }

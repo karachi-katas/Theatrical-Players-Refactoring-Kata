@@ -17,14 +17,8 @@ public class StatementPrinter {
             Play play = plays.get(perf.playID);
 
             int thisAmount = play.calculateAmount(perf.audience);
-
-
-
             // add volume credits
-            volumeCredits += Math.max(perf.audience - 30, 0);
-            // add extra credit for every ten comedy attendees
-            if ("comedy".equals(play.type)) volumeCredits += Math.floor(perf.audience / 5);
-
+            volumeCredits += play.calculateVolumeCredit(perf.audience);
             // print line for this order
             result.append(String.format("  %s: %s (%s seats)\n", play.name, numberFormat.format(thisAmount / 100), perf.audience));
             totalAmount += thisAmount;

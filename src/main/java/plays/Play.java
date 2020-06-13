@@ -10,4 +10,5 @@ public  abstract class Play {
         this.type = type;
     }
     public abstract int calculateAmount(int audience);
+    public abstract int calculateVolumeCredit(int audience);
 }
