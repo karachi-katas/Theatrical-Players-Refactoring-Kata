@@ -11,6 +11,13 @@ public class Play {
     public static final int TRAGEDY_FIXED_SURCHARGE_FOR_ADDITIONAL_AUDIENCE = 0;
     public static final int TRAGEDY_PRICE_PER_PERSON = 0;
 
+    protected int baseAmount = 30000;
+    protected int audienceThreshold = 20;
+    protected int fixedSurchargeForAdditionalPerson = 10000;
+    protected int pricePerPerson = 300;
+    protected int pricePerAdditionalPerson = 500;
+
+
     public String name;
     public String type;
 
