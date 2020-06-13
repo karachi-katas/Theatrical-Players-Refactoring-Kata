@@ -21,6 +21,6 @@ public class Performances implements Invoiceable {
 
     @Override
     public String print(InvoicePrinter invoicePrinter) {
-        return invoicePrinter.printFor(performances);
+        return invoicePrinter.printFor(performances, getTotalAmount(), getTotalVolumeCredits());
     }
 }

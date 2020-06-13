@@ -4,12 +4,6 @@ import java.util.Locale;
 public class Invoice {
 
     public static final String INVOICE_HEADER = "Statement for %s\n";
-    public static final String INVOICE_LINE = "  %s: %s (%s seats)\n";
-    public static final String INVOICE_FOOTER =
-            "Amount owed is %s\n"
-            + "You earned %s credits\n";
-
-    public static final NumberFormat NUMBER_FORMAT = NumberFormat.getCurrencyInstance(Locale.US);
 
     public String customer;
     Performances performances;
@@ -23,10 +17,6 @@ public class Invoice {
         StringBuilder result = new StringBuilder(String.format(INVOICE_HEADER, customer));
 
         result.append(performances.print(new InvoicePrinter()));
-
-        result.append(String.format(INVOICE_FOOTER,
-                NUMBER_FORMAT.format(performances.getTotalAmount() / 100),
-                performances.getTotalVolumeCredits()));
 
         return result.toString();
     }

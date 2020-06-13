@@ -6,6 +6,9 @@ import java.util.Locale;
 public class InvoicePrinter {
 
     public static final String INVOICE_LINE = "  %s: %s (%s seats)\n";
+    public static final String INVOICE_FOOTER =
+            "Amount owed is %s\n"
+                    + "You earned %s credits\n";
     public static final NumberFormat NUMBER_FORMAT = NumberFormat.getCurrencyInstance(Locale.US);
 
     public String printFor(Play play, int audience, int amount) {
@@ -15,11 +18,17 @@ public class InvoicePrinter {
                 audience);
     }
 
-    public String printFor(List<Performance> performances) {
+    public String printFor(List<Performance> performances, int totalAmount, int totalVolumeCredits) {
         StringBuilder result = new StringBuilder();
+
         for (Performance perf : performances) {
             result.append(perf.print(new InvoicePrinter()));
         }
+
+        result.append(String.format(INVOICE_FOOTER,
+                NUMBER_FORMAT.format(totalAmount / 100),
+                totalVolumeCredits));
+
         return result.toString();
     }
 }
