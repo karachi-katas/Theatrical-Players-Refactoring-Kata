@@ -14,9 +14,13 @@ public class Play {
     public String name;
     public String type;
 
-    public Play(String name, String type) {
+    private Play(String name, String type) {
         this.name = name;
         this.type = type;
+    }
+
+    public static Play create(String name, String type) {
+        return new Play(name, type);
     }
 
     int getAmount(Performance perf) {
