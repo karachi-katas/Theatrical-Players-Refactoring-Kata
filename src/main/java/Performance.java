@@ -1,35 +1,24 @@
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 public class Performance {
 
     private Play play;
     public Audience audience;
-    public Map<String, Supplier<Integer>> baseAmount;
+    public Map<String, Integer> baseAmount;
 
     public Performance(Play play, Audience audience) {
         this.play = play;
         this.audience = audience;
         this.baseAmount = new HashMap<>();
-        this.baseAmount.put("tragedy",()->{
-            int thisAmount = 40000;
-            thisAmount += audience.getExtraAmount(play.type);
-            return thisAmount;
-        });
-        this.baseAmount.put("comedy",()->{
-            int thisAmount = 30000;
-            thisAmount += audience.getExtraAmount(play.type);
-            thisAmount += 300 * audience.count;
-            return thisAmount;
-        });
-
+        this.baseAmount.put("tragedy", 40000);
+        this.baseAmount.put("comedy", 30000);
     }
 
     public int getThisAmount() {
-       return baseAmount.getOrDefault(play.type, () ->{
-            throw new Error("unknown type: ${play.type}");
-        }).get();
+        return Optional.ofNullable(baseAmount.get(play.type)).orElseThrow(() -> new Error("unknown type: ${play.type}")) + audience.getExtraAmount(play.type);
     }
 
     public int getVolumeCredit(){
