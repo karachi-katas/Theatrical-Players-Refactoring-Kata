@@ -9,11 +9,19 @@ public class Comedy extends Play {
     @Override
     public int getAmount(int audience) {
         int thisAmount = 30000;
-        if (audience > 20) {
-            thisAmount += 10000 + 500 * (audience - 20);
-        }
+        thisAmount += addBonusIfApplicable(audience);
         thisAmount += 300 * audience;
         return thisAmount;
+    }
+
+    @Override
+    public int addBonus(int audience) {
+        return 10000 + 500 * (audience - 20);
+    }
+
+    @Override
+    public boolean isAudienceLarge(int audience) {
+        return audience > 20;
     }
 
     @Override

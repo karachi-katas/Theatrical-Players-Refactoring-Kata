@@ -5,8 +5,6 @@ import play.Play;
 import play.Tragedy;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 import static org.approvaltests.Approvals.verify;
 

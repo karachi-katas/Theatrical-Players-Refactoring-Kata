@@ -1,7 +1,6 @@
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
-import play.Play;
 
 public class Invoice {
 
@@ -18,14 +17,13 @@ public class Invoice {
     }
 
 
-    public void func(StringBuilder result) {
+    public void initializeInvoice(StringBuilder result) {
 
         for (Performance perf : performances) {
-            Play play = perf.play;
-            int thisAmount = perf.calculatePerformanceAmount(play);
+            int thisAmount = perf.calculatePerformanceAmount();
             // add volume credits
-            volumeCredits += play.getVolumeCredits(perf.audience);
-            result.append(String.format("  %s: %s (%s seats)\n", play.name, numberFormat.format(thisAmount / 100), perf.audience));
+            volumeCredits += perf.getVolumeCredits();
+            result.append(String.format("  %s: %s (%s seats)\n", perf.getPlayName(), numberFormat.format(thisAmount / 100), perf.audience));
             totalAmount += thisAmount;
         }
 

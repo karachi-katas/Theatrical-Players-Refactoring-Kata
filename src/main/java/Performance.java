@@ -10,9 +10,17 @@ public class Performance {
         this.audience = audience;
     }
 
-    public int calculatePerformanceAmount(Play play) {
+    public int calculatePerformanceAmount() {
         return play.getAmount(audience);
 
+    }
+
+    public int getVolumeCredits(){
+        return play.getVolumeCredits(audience);
+    }
+
+    public String getPlayName() {
+        return play.name;
     }
 
 }

@@ -7,7 +7,7 @@ public class StatementPrinter {
 
         StringBuilder result = new StringBuilder(String.format("Statement for %s\n", invoice.customer));
 
-        invoice.func(result);
+        invoice.initializeInvoice(result);
 
         NumberFormat numberFormat = NumberFormat.getCurrencyInstance(Locale.US);
 
