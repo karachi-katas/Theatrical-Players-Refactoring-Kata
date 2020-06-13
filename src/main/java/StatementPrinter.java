@@ -4,7 +4,7 @@ import java.util.Map;
 
 public class StatementPrinter {
 
-    public String print(Invoice invoice, Map<String, Play> plays) {
+    public String print(Invoice invoice) {
         int totalAmount = 0;
         int volumeCredits = 0;
         StringBuilder result = new StringBuilder(String.format("Statement for %s\n", invoice.customer));
@@ -12,26 +12,8 @@ public class StatementPrinter {
         NumberFormat numberFormat = NumberFormat.getCurrencyInstance(Locale.US);
 
         for (Performance perf : invoice.performances) {
-            Play play = plays.get(perf.playID);
-            int thisAmount = 0;
-
-            switch (play.type) {
-                case "tragedy":
-                    thisAmount = 40000;
-                    if (perf.audience > 30) {
-                        thisAmount += 1000 * (perf.audience - 30);
-                    }
-                    break;
-                case "comedy":
-                    thisAmount = 30000;
-                    if (perf.audience > 20) {
-                        thisAmount += 10000 + 500 * (perf.audience - 20);
-                    }
-                    thisAmount += 300 * perf.audience;
-                    break;
-                default:
-                    throw new Error("unknown type: ${play.type}");
-            }
+            Play play = perf.play;
+            int thisAmount = getThisAmount(perf, play);
 
             // add volume credits
             volumeCredits += Math.max(perf.audience - 30, 0);
@@ -45,6 +27,29 @@ public class StatementPrinter {
         result.append(String.format("Amount owed is %s\n", numberFormat.format(totalAmount / 100)));
         result.append(String.format("You earned %s credits\n", volumeCredits));
         return result.toString();
+    }
+
+    private static int getThisAmount(Performance perf, Play play) {
+        int thisAmount = 0;
+
+        switch (play.type) {
+            case "tragedy":
+                thisAmount = 40000;
+                if (perf.audience > 30) {
+                    thisAmount += 1000 * (perf.audience - 30);
+                }
+                break;
+            case "comedy":
+                thisAmount = 30000;
+                if (perf.audience > 20) {
+                    thisAmount += 10000 + 500 * (perf.audience - 20);
+                }
+                thisAmount += 300 * perf.audience;
+                break;
+            default:
+                throw new Error("unknown type: ${play.type}");
+        }
+        return thisAmount;
     }
 
 }
