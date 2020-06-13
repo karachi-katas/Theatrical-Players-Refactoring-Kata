@@ -12,6 +12,8 @@ public class StatementPrinter {
     public static final int COMEDY_FIXED_SURCHARGE_FOR_ADDITIONAL_AUDIENCE = 10000;
     public static final int COMEDY_PRICE_PER_ADDITIONAL_PERSON = 500;
     public static final int COMEDY_PRICE_PER_PERSON = 300;
+    public static final int TRAGEDY_FIXED_SURCHARGE_FOR_ADDITIONAL_AUDIENCE = 0;
+    public static final int TRAGEDY_PRICE_PER_PERSON = 0;
 
     public String print(Invoice invoice, Map<String, Play> plays) {
         int totalAmount = 0;
@@ -28,13 +30,18 @@ public class StatementPrinter {
                 case "tragedy":
                     thisAmount = TRAGEDY_BASE_AMOUNT;
                     if (perf.audience > TRAGEDY_AUDIENCE_THRESHOLD) {
-                        thisAmount += TRAGEDY_PRICE_PER_ADDITIONAL_PERSON * (perf.audience - TRAGEDY_AUDIENCE_THRESHOLD);
+                        thisAmount += TRAGEDY_FIXED_SURCHARGE_FOR_ADDITIONAL_AUDIENCE
+                                + TRAGEDY_PRICE_PER_ADDITIONAL_PERSON
+                                * (perf.audience - TRAGEDY_AUDIENCE_THRESHOLD);
                     }
+                    thisAmount += TRAGEDY_PRICE_PER_PERSON * perf.audience;
                     break;
                 case "comedy":
                     thisAmount = COMEDY_BASE_AMOUNT;
                     if (perf.audience > COMEDY_AUDIENCE_THRESHOLD) {
-                        thisAmount += COMEDY_FIXED_SURCHARGE_FOR_ADDITIONAL_AUDIENCE + COMEDY_PRICE_PER_ADDITIONAL_PERSON * (perf.audience - COMEDY_AUDIENCE_THRESHOLD);
+                        thisAmount += COMEDY_FIXED_SURCHARGE_FOR_ADDITIONAL_AUDIENCE
+                                + COMEDY_PRICE_PER_ADDITIONAL_PERSON
+                                * (perf.audience - COMEDY_AUDIENCE_THRESHOLD);
                     }
                     thisAmount += COMEDY_PRICE_PER_PERSON * perf.audience;
                     break;
