@@ -1,5 +1,6 @@
 import Play.Play;
 import java.text.NumberFormat;
+import java.util.List;
 import java.util.Locale;
 
 public class InvoicePrinter {
@@ -12,5 +13,13 @@ public class InvoicePrinter {
                 play.name,
                 NUMBER_FORMAT.format(amount / 100),
                 audience);
+    }
+
+    public String printFor(List<Performance> performances) {
+        StringBuilder result = new StringBuilder();
+        for (Performance perf : performances) {
+            result.append(perf.print(new InvoicePrinter()));
+        }
+        return result.toString();
     }
 }
