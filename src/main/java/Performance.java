@@ -14,16 +14,12 @@ public class Performance {
         this.baseAmount = new HashMap<>();
         this.baseAmount.put("tragedy",()->{
             int thisAmount = 40000;
-            if (audience.count > 30) {
-                thisAmount += 1000 * (audience.count - 30);
-            }
+            thisAmount += audience.getExtraAmount(play.type);
             return thisAmount;
         });
         this.baseAmount.put("comedy",()->{
             int thisAmount = 30000;
-            if (audience.count > 20) {
-                thisAmount += 10000 + 500 * (audience.count - 20);
-            }
+            thisAmount += audience.getExtraAmount(play.type);
             thisAmount += 300 * audience.count;
             return thisAmount;
         });
