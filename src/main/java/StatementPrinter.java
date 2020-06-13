@@ -15,11 +15,9 @@ public class StatementPrinter {
             thisAmount = invoice.generateInvoice(perf);
 
             volumeCredits += invoice.getVolumeCredits(perf);
-            // print line for this order
             result.append(String.format("  %s: %s (%s seats)\n", perf.play.name, numberFormat.format(thisAmount / 100), perf.audience));
             totalAmount += thisAmount;
         }
-        //totalAmount += invoice.generateInvoice();
 
         result.append(String.format("Amount owed is %s\n", numberFormat.format(totalAmount / 100)));
         result.append(String.format("You earned %s credits\n", volumeCredits));
