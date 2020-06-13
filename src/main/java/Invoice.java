@@ -22,17 +22,20 @@ public class Invoice {
     public String print() {
         StringBuilder result = new StringBuilder(String.format(INVOICE_HEADER, customer));
 
-        for (Performance perf : performances.getPerformances()) {
-            result.append(String.format(INVOICE_LINE,
-                    perf.play.name,
-                    NUMBER_FORMAT.format(perf.getAmount() / 100),
-                    perf.audience));
-        }
+        result.append(getInvoiceLines());
 
         result.append(String.format(INVOICE_FOOTER,
                 NUMBER_FORMAT.format(performances.getTotalAmount() / 100),
                 performances.getTotalVolumeCredits()));
 
         return result.toString();
+    }
+
+    private StringBuilder getInvoiceLines() {
+        StringBuilder result = new StringBuilder();
+        for (Performance perf : performances.getPerformances()) {
+            result.append(perf.print(new InvoicePrinter()));
+        }
+        return result;
     }
 }
