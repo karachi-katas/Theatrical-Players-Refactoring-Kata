@@ -1,34 +1,39 @@
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Supplier;
+
 public class Performance {
 
     public Play play;
     public int audience;
+    public Map<String, Supplier<Integer>> amountCalculationStrategy;
 
     public Performance(Play play, int audience) {
         this.play = play;
         this.audience = audience;
+        this.amountCalculationStrategy = new HashMap<>();
+        this.amountCalculationStrategy.put("tragedy",()->{
+            int thisAmount = 40000;
+            if (audience > 30) {
+                thisAmount += 1000 * (audience - 30);
+            }
+            return thisAmount;
+        });
+        this.amountCalculationStrategy.put("comedy",()->{
+            int thisAmount = 30000;
+            if (audience > 20) {
+                thisAmount += 10000 + 500 * (audience - 20);
+            }
+            thisAmount += 300 * audience;
+            return thisAmount;
+        });
+
     }
 
     public int getThisAmount() {
-        int thisAmount;
-
-        switch (play.type) {
-            case "tragedy":
-                thisAmount = 40000;
-                if (audience > 30) {
-                    thisAmount += 1000 * (audience - 30);
-                }
-                break;
-            case "comedy":
-                thisAmount = 30000;
-                if (audience > 20) {
-                    thisAmount += 10000 + 500 * (audience - 20);
-                }
-                thisAmount += 300 * audience;
-                break;
-            default:
-                throw new Error("unknown type: ${play.type}");
-        }
-        return thisAmount;
+       return amountCalculationStrategy.getOrDefault(play.type, () ->{
+            throw new Error("unknown type: ${play.type}");
+        }).get();
     }
 
     public int getVolumeCredit(){
