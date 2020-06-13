@@ -2,8 +2,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 import static org.approvaltests.Approvals.verify;
 
@@ -24,14 +22,14 @@ public class StatementPrinterTests {
                 new Performance("othello", 40)
         ));
 
-        StatementPrinter statementPrinter = new StatementPrinter();
-        String result = statementPrinter.print(invoice);
+        String result = invoice.print();
 
         verify(result);
     }
 
     @Test
     public void statementWithNewPlayTypes() {
+
         // Setup
         PlaysRepository playRepo = PlaysRepository.getInstance();
         playRepo.addPlay("henry-v", new Play("Henry V", "history"));
@@ -41,9 +39,8 @@ public class StatementPrinterTests {
                 new Performance("henry-v", 53),
                 new Performance("as-like", 55)));
 
-        StatementPrinter statementPrinter = new StatementPrinter();
         Assert.assertThrows(Error.class, () -> {
-            statementPrinter.print(invoice);
+            invoice.print();
         });
     }
 }
