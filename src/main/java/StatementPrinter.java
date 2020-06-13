@@ -12,18 +12,12 @@ public class StatementPrinter {
         StringBuilder result = new StringBuilder(String.format("Statement for %s\n", invoice.customer));
 
         NumberFormat numberFormat = NumberFormat.getCurrencyInstance(Locale.US);
-
         for (Performance perf : invoice.performances) {
+            int thisAmount = 0;
             Play play = plays.get(perf.playID);
-
-            int thisAmount = perf.calculatePerformanceAmount(play);
-
+            thisAmount += perf.calculatePerformanceAmount(play);
             // add volume credits
-            volumeCredits += Math.max(perf.audience - 30, 0);
-            // add extra credit for every ten comedy attendees
-            if ("comedy".equals(play.type)) volumeCredits += Math.floor(perf.audience / 5);
-
-            // print line for this order
+            volumeCredits += play.getVolumeCredits(perf.audience);
             result.append(String.format("  %s: %s (%s seats)\n", play.name, numberFormat.format(thisAmount / 100), perf.audience));
             totalAmount += thisAmount;
         }

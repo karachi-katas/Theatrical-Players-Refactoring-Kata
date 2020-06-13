@@ -1,6 +1,8 @@
 import org.junit.Assert;
 import org.junit.Test;
+import play.Comedy;
 import play.Play;
+import play.Tragedy;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -13,9 +15,9 @@ public class StatementPrinterTests {
     @Test
     public void exampleStatement() {
         Map<String, Play> plays = new HashMap<String, Play>() {{
-            put("hamlet", new Play("Hamlet", "tragedy"));
-            put("as-like", new Play("As You Like It", "comedy"));
-            put("othello", new Play("Othello", "tragedy"));
+            put("hamlet", new Tragedy("Hamlet", "tragedy"));
+            put("as-like", new Comedy("As You Like It", "comedy"));
+            put("othello", new Tragedy("Othello", "tragedy"));
         }};
 
         Invoice invoice = new Invoice("BigCo", Arrays.asList(
@@ -43,8 +45,6 @@ public class StatementPrinterTests {
                 new Performance("as-like", 55)));
 
         StatementPrinter statementPrinter = new StatementPrinter();
-        Assert.assertThrows(Error.class, () -> {
-            statementPrinter.print(invoice, plays);
-        });
+        Assert.assertThrows(Error.class, () -> statementPrinter.print(invoice, plays));
     }
 }

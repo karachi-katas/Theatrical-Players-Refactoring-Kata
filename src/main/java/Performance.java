@@ -11,8 +11,8 @@ public class Performance {
     }
 
     public int calculatePerformanceAmount(Play play) {
-        int thisAmount = 0;
-        switch (play.type) {
+        return play.getAmount(audience);
+        /*switch (play.type) {
             case "tragedy":
                 thisAmount = 40000;
                 if (audience > 30) {
@@ -28,7 +28,7 @@ public class Performance {
                 break;
             default:
                 throw new Error("unknown type: ${play.type}");
-        }
-        return thisAmount;
+        }*/
     }
+
 }
