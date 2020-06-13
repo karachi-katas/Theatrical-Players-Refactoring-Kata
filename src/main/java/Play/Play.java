@@ -18,16 +18,20 @@ public abstract class Play {
     }
 
     public static Play create(String name, String type) {
-        if (type == "tragedy") {
-            return new TragedyPlay(name, type);
-        }
-        if (type == "comedy"){
-            return new ComedyPlay(name, type);
+        switch (type) {
+            case "tragedy":
+                return new TragedyPlay(name, type);
+            case "comedy":
+                return new ComedyPlay(name, type);
         }
         return new BadPlay(name, type);
     }
 
     public int getAmount(int audience) {
+        return getAmountElaborate(audience);
+    }
+
+    private int getAmountElaborate(int audience) {
         int thisAmount;
         thisAmount = baseAmount;
         if (audience > audienceThreshold) {
