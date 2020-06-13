@@ -4,10 +4,6 @@ public class UnknownPlay extends Play {
         super(name, type);
     }
 
-    @Override
-    int getBaseAmount() {
-        return 0;
-    }
 
     @Override
     int totalAmountBasedOnAudience(int audience) {

@@ -11,7 +11,7 @@ public class Invoice {
     }
 
     public int generateInvoice(Performance perf) {
-        return perf.getAmount();
+        return perf.getPerformanceRevenue();
     }
 
     public int getVolumeCredits(Performance perf) {

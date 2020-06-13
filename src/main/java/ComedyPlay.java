@@ -4,14 +4,10 @@ public class ComedyPlay extends Play {
         super(name, type);
     }
 
-    @Override
-    int getBaseAmount() {
-        return 30000;
-    }
 
     @Override
     int totalAmountBasedOnAudience(int audience) {
-        int thisAmount = getBaseAmount();
+        int thisAmount = 30000;
         if (audience > 20) {
             thisAmount += 10000 + 500 * (audience - 20);
         }

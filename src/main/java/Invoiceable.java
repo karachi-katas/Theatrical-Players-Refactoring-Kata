@@ -1,4 +1,4 @@
 public interface Invoiceable {
-    int getAmount();
+    int getPerformanceRevenue();
     int getVolumeCredits();
 }

@@ -3,14 +3,11 @@ public class TragedyPlay extends Play {
         super(name, type);
     }
 
-    @Override
-    int getBaseAmount() {
-        return 40000;
-    }
+
 
     @Override
     int totalAmountBasedOnAudience(int audience) {
-        int thisAmount = getBaseAmount();
+        int thisAmount = 40000;
         if (audience > 30) {
             thisAmount += 1000 * (audience - 30);
         }

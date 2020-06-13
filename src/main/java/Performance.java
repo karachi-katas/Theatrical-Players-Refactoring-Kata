@@ -9,7 +9,7 @@ public class Performance implements Invoiceable {
     }
 
     @Override
-    public int getAmount() {
+    public int getPerformanceRevenue() {
         return play.totalAmountBasedOnAudience(audience);
     }
 
