@@ -12,45 +12,18 @@ public class StatementPrinter {
         NumberFormat numberFormat = NumberFormat.getCurrencyInstance(Locale.US);
 
         for (Performance perf : invoice.performances) {
-            Play play = plays.get(perf.playID);
-            int thisAmount = 0;
+            Play play = plays.get(perf.getPlayID());
 
-            thisAmount = calculateTotalAmount(perf, play);
+            int thisAmount = perf.getAmount();
 
-            // add volume credits
-            volumeCredits += Math.max(perf.audience - 30, 0);
-            // add extra credit for every ten comedy attendees
-            if ("comedy".equals(play.type)) volumeCredits += Math.floor(perf.audience / 5);
+            volumeCredits += Math.max(perf.getAudience() - 30, 0);
+            if ("comedy".equals(play.type)) volumeCredits += Math.floor(perf.getAudience() / 5);
 
-            // print line for this order
-            result.append(String.format("  %s: %s (%s seats)\n", play.name, numberFormat.format(thisAmount / 100), perf.audience));
+            result.append(String.format("  %s: %s (%s seats)\n", play.name, numberFormat.format(thisAmount / 100), perf.getAudience()));
             totalAmount += thisAmount;
         }
         result.append(String.format("Amount owed is %s\n", numberFormat.format(totalAmount / 100)));
         result.append(String.format("You earned %s credits\n", volumeCredits));
         return result.toString();
     }
-
-    private int calculateTotalAmount(Performance perf, Play play) {
-        int thisAmount;
-        switch (play.type) {
-            case "tragedy":
-                thisAmount = 40000;
-                if (perf.audience > 30) {
-                    thisAmount += 1000 * (perf.audience - 30);
-                }
-                break;
-            case "comedy":
-                thisAmount = 30000;
-                if (perf.audience > 20) {
-                    thisAmount += 10000 + 500 * (perf.audience - 20);
-                }
-                thisAmount += 300 * perf.audience;
-                break;
-            default:
-                throw new Error("unknown type: ${play.type}");
-        }
-        return thisAmount;
-    }
-
 }
