@@ -4,17 +4,13 @@ import java.util.Map;
 public class PlaysRepository {
 
     private Map<String, Play> plays;
-    private static PlaysRepository playRepo;
+    private static PlaysRepository playRepo = new PlaysRepository();
 
     private PlaysRepository() {
         plays = new HashMap <String, Play>();
     }
 
     public static PlaysRepository getInstance() {
-
-        if (playRepo == null) {
-            playRepo = new PlaysRepository();
-        }
         return playRepo;
     }
 
