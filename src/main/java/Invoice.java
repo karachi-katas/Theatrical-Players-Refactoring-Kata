@@ -7,31 +7,52 @@ public class Invoice {
     public String customer;
     public List<Performance> performances;
 
+//    private int totalAmount;
+//    private int volumeCredits;
+
     public Invoice(String customer, List<Performance> performances) {
         this.customer = customer;
         this.performances = performances;
+
+//        totalAmount = calculateTotalAmount();
+//        volumeCredits = calculateVolumeCredits();
+    }
+
+    private int calculateTotalAmount() {
+        return this.performances
+                .stream()
+                .mapToInt(Performance::getAmount)
+                .sum();
+    }
+
+    private int calculateVolumeCredits() {
+        return this.performances
+                .stream()
+                .mapToInt(Performance::getCredits)
+                .sum();
     }
 
     public String print() {
+        StringBuilder result = new StringBuilder(String.format("Statement for %s\n", this.customer));
+        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(Locale.US);
+
         int totalAmount = 0;
         int volumeCredits = 0;
-        StringBuilder result = new StringBuilder(String.format("Statement for %s\n", this.customer));
 
-        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(Locale.US);
-        PlaysRepository playRepo = PlaysRepository.getInstance();
         for (Performance perf : this.performances) {
-            Play play = playRepo.findPlayById(perf.getPlayID());
+            Play play = PlaysRepository.getInstance().findPlayById(perf.getPlayID());
 
             int thisAmount = perf.getAmount();
 
-            volumeCredits += Math.max(perf.getAudience() - 30, 0);
-            if ("comedy".equals(play.type)) volumeCredits += Math.floor(perf.getAudience() / 5);
+            volumeCredits += perf.getCredits();
+            totalAmount += thisAmount;
 
             result.append(String.format("  %s: %s (%s seats)\n", play.name, numberFormat.format(thisAmount / 100), perf.getAudience()));
-            totalAmount += thisAmount;
         }
+
         result.append(String.format("Amount owed is %s\n", numberFormat.format(totalAmount / 100)));
         result.append(String.format("You earned %s credits\n", volumeCredits));
+
         return result.toString();
     }
 }

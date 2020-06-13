@@ -1,9 +1,14 @@
 package AmountStrategies;
 
-public class UnknownPlayCalculator implements AmountCalculator {
+public class UnknownPlayCalculator implements InvoiceCalculator {
 
     @Override
-    public int calculate(int audience) {
+    public int calculateAmount(int audience) {
+        throw new Error("unknown type: ${play.type}");
+    }
+
+    @Override
+    public int calculateCredits(int audience) {
         throw new Error("unknown type: ${play.type}");
     }
 }
