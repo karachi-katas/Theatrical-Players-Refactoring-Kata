@@ -10,4 +10,10 @@ public abstract class Play {
     }
 
     abstract int getBaseAmount();
+
+    abstract int totalAmountBasedOnAudience(int audience);
+
+    public int volumeCreditBasedOnAudience(int audience) {
+        return Math.max(audience - 30, 0);
+    }
 }

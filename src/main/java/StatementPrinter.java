@@ -1,6 +1,5 @@
 import java.text.NumberFormat;
 import java.util.Locale;
-import java.util.Map;
 
 public class StatementPrinter {
 
@@ -10,9 +9,8 @@ public class StatementPrinter {
         StringBuilder result = new StringBuilder(String.format("Statement for %s\n", invoice.customer));
 
         NumberFormat numberFormat = NumberFormat.getCurrencyInstance(Locale.US);
-        int thisAmount = 0;
         for (Performance perf : invoice.performances) {
-            thisAmount = invoice.generateInvoice(perf);
+            int thisAmount = invoice.generateInvoice(perf);
 
             volumeCredits += invoice.getVolumeCredits(perf);
             result.append(String.format("  %s: %s (%s seats)\n", perf.play.name, numberFormat.format(thisAmount / 100), perf.audience));

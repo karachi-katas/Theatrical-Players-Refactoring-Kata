@@ -1,4 +1,4 @@
-public class Performance {
+public class Performance implements Invoiceable {
 
     public Play play;
     public int audience;
@@ -6,5 +6,15 @@ public class Performance {
     public Performance(Play play, int audience) {
         this.play = play;
         this.audience = audience;
+    }
+
+    @Override
+    public int getAmount() {
+        return play.totalAmountBasedOnAudience(audience);
+    }
+
+    @Override
+    public int getVolumeCredits() {
+        return play.volumeCreditBasedOnAudience(audience);
     }
 }

@@ -27,8 +27,8 @@ public class StatementPrinterTests {
 
     @Test
     public void statementWithNewPlayTypes() {
-        Play henryV = new HistoryPlay("Henry V", "history");
-        Play asYouLikeIt = new PastoralPlay("As You Like It", "pastoral");
+        Play henryV = new UnknownPlay("Henry V", "history");
+        Play asYouLikeIt = new UnknownPlay("As You Like It", "pastoral");
 
         Invoice invoice = new Invoice("BigCo", Arrays.asList(
                 new Performance(henryV, 53),
