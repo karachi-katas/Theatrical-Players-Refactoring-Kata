@@ -7,6 +7,10 @@ public class Performances {
         this.performances = performances;
     }
 
+    public List<Performance> getPerformances() {
+        return performances;
+    }
+
     public int getTotalAmount() {
         return performances.stream().mapToInt(Performance::getAmount).sum();
     }

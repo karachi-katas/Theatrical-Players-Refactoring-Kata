@@ -1,4 +1,5 @@
 import Play.Play;
+import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -18,11 +19,13 @@ public class StatementPrinterTests {
             put("othello", Play.create("Othello", "tragedy"));
         }};
 
-        Invoice invoice = new Invoice("BigCo", Arrays.asList(
+        List<Performance> performances = Arrays.asList(
                 new Performance(plays.get("hamlet"), 55),
                 new Performance(plays.get("as-like"), 35),
                 new Performance(plays.get("othello"), 40)
-        ));
+        );
+
+        Invoice invoice = new Invoice("BigCo", new Performances(performances));
 
         String result = invoice.print();
 
@@ -37,9 +40,11 @@ public class StatementPrinterTests {
             put("as-like", Play.create("As You Like It", "pastoral"));
         }};
 
-        Invoice invoice = new Invoice("BigCo", Arrays.asList(
+        List<Performance> performances = Arrays.asList(
                 new Performance(plays.get("henry-v"), 53),
-                new Performance(plays.get("as-like"), 55))
+                new Performance(plays.get("as-like"), 55));
+
+        Invoice invoice = new Invoice("BigCo", new Performances(performances)
         );
 
         Assert.assertThrows(Error.class, () -> {
