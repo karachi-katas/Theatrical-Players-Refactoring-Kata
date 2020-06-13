@@ -12,9 +12,9 @@ public class StatementPrinterTests {
     @Test
     public void exampleStatement() {
         Invoice invoice = new Invoice("BigCo", Arrays.asList(
-                new Performance(new Play("Hamlet", "tragedy"), 55),
-                new Performance(new Play("As You Like It", "comedy"), 35),
-                new Performance(new Play("Othello", "tragedy"), 40)
+                new Performance(new Play("Hamlet", "tragedy"), new Audience(55)),
+                new Performance(new Play("As You Like It", "comedy"), new Audience(35)),
+                new Performance(new Play("Othello", "tragedy"), new Audience(40))
         ));
 
         StatementPrinter statementPrinter = new StatementPrinter();
@@ -27,8 +27,8 @@ public class StatementPrinterTests {
     public void statementWithNewPlayTypes() {
 
         Invoice invoice = new Invoice("BigCo", Arrays.asList(
-                new Performance(new Play("Henry V", "history"), 53),
-                new Performance(new Play("As You Like It", "pastoral"), 55)));
+                new Performance(new Play("Henry V", "history"), new Audience(53)),
+                new Performance(new Play("As You Like It", "pastoral"), new Audience(55))));
 
         StatementPrinter statementPrinter = new StatementPrinter();
         Assert.assertThrows(Error.class, () -> {

@@ -12,7 +12,7 @@ public class StatementPrinter {
         for (Performance perf : invoice.performances) {
             int thisAmount = perf.getThisAmount();
             // print line for this order
-            result.append(String.format("  %s: %s (%s seats)\n", perf.getName(), numberFormat.format(thisAmount / 100), perf.audience));
+            result.append(String.format("  %s: %s (%s seats)\n", perf.getName(), numberFormat.format(thisAmount / 100), perf.getAudienceCount()));
 
             totalAmount += thisAmount;
             volumeCredits += perf.getVolumeCredit();
