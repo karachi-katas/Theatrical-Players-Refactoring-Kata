@@ -10,36 +10,17 @@ public class StatementPrinter {
         StringBuilder result = new StringBuilder(String.format("Statement for %s\n", invoice.customer));
 
         NumberFormat numberFormat = NumberFormat.getCurrencyInstance(Locale.US);
-
+        int thisAmount = 0;
         for (Performance perf : invoice.performances) {
-            Play play = perf.play;
-            int thisAmount = play.getBaseAmount();
+            thisAmount = invoice.generateInvoice(perf);
 
-            switch (play.type) {
-                case "tragedy":
-                    if (perf.audience > 30) {
-                        thisAmount += 1000 * (perf.audience - 30);
-                    }
-                    break;
-                case "comedy":
-                    if (perf.audience > 20) {
-                        thisAmount += 10000 + 500 * (perf.audience - 20);
-                    }
-                    thisAmount += 300 * perf.audience;
-                    break;
-                default:
-                    throw new Error("unknown type: ${play.type}");
-            }
-
-            // add volume credits
-            volumeCredits += Math.max(perf.audience - 30, 0);
-            // add extra credit for every ten comedy attendees
-            if ("comedy".equals(play.type)) volumeCredits += Math.floor(perf.audience / 5);
-
+            volumeCredits += invoice.getVolumeCredits(perf);
             // print line for this order
-            result.append(String.format("  %s: %s (%s seats)\n", play.name, numberFormat.format(thisAmount / 100), perf.audience));
+            result.append(String.format("  %s: %s (%s seats)\n", perf.play.name, numberFormat.format(thisAmount / 100), perf.audience));
             totalAmount += thisAmount;
         }
+        //totalAmount += invoice.generateInvoice();
+
         result.append(String.format("Amount owed is %s\n", numberFormat.format(totalAmount / 100)));
         result.append(String.format("You earned %s credits\n", volumeCredits));
         return result.toString();
