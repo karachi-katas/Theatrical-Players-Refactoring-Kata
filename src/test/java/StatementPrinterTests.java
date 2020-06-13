@@ -22,7 +22,7 @@ public class StatementPrinterTests {
                 new Performance(plays.get("hamlet"), 55),
                 new Performance(plays.get("as-like"), 35),
                 new Performance(plays.get("othello"), 40)
-        ), plays);
+        ));
 
         String result = invoice.print();
 
@@ -40,7 +40,7 @@ public class StatementPrinterTests {
         Invoice invoice = new Invoice("BigCo", Arrays.asList(
                 new Performance(plays.get("henry-v"), 53),
                 new Performance(plays.get("as-like"), 55))
-                ,plays);
+        );
 
         Assert.assertThrows(Error.class, () -> {
             invoice.print();

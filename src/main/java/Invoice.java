@@ -8,13 +8,10 @@ public class Invoice {
 
     public String customer;
     public List<Performance> performances;
-    Map<String, Play> plays;
 
-    public Invoice(String customer, List<Performance> performances,
-            Map<String, Play> plays) {
+    public Invoice(String customer, List<Performance> performances) {
         this.customer = customer;
         this.performances = performances;
-        this.plays = plays;
     }
 
     public String print() {
