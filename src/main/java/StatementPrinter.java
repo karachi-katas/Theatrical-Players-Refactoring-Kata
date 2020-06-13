@@ -37,7 +37,6 @@ public class StatementPrinter {
             result.append(String.format("  %s: %s (%s seats)\n", play.name, numberFormat.format(thisAmount / 100), performance.audience));
             this.totalAmount += thisAmount;
         }
-
     }
 
 }

@@ -7,14 +7,4 @@ public class Performance {
         this.playID = playID;
         this.audience = audience;
     }
-
-    int getTragedyAdditionalAmount() {
-        if (audience > 30) return 1000 * (audience - 30);
-        return 0;
-    }
-
-    int getComedyAdditionalAmount() {
-        if (audience > 20) return 10000 + 500 * (audience - 20);
-        return 0;
-    }
 }
