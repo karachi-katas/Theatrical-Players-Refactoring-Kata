@@ -4,22 +4,22 @@ import java.util.function.Supplier;
 
 public class Performance {
 
-    public Play play;
+    private Play play;
     public int audience;
-    public Map<String, Supplier<Integer>> amountCalculationStrategy;
+    public Map<String, Supplier<Integer>> baseAmount;
 
     public Performance(Play play, int audience) {
         this.play = play;
         this.audience = audience;
-        this.amountCalculationStrategy = new HashMap<>();
-        this.amountCalculationStrategy.put("tragedy",()->{
+        this.baseAmount = new HashMap<>();
+        this.baseAmount.put("tragedy",()->{
             int thisAmount = 40000;
             if (audience > 30) {
                 thisAmount += 1000 * (audience - 30);
             }
             return thisAmount;
         });
-        this.amountCalculationStrategy.put("comedy",()->{
+        this.baseAmount.put("comedy",()->{
             int thisAmount = 30000;
             if (audience > 20) {
                 thisAmount += 10000 + 500 * (audience - 20);
@@ -31,7 +31,7 @@ public class Performance {
     }
 
     public int getThisAmount() {
-       return amountCalculationStrategy.getOrDefault(play.type, () ->{
+       return baseAmount.getOrDefault(play.type, () ->{
             throw new Error("unknown type: ${play.type}");
         }).get();
     }
@@ -41,5 +41,9 @@ public class Performance {
         // add extra credit for every ten comedy attendees
         if ("comedy".equals(play.type)) volumeCredits += Math.floor(audience / 5);
         return volumeCredits;
+    }
+
+    public String getName(){
+        return this.play.name;
     }
 }
