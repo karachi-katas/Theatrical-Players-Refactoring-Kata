@@ -2,8 +2,8 @@ package plays;
 
 public class Invalid extends Play {
 
-    public Invalid(String name, String type) {
-        super(name, type);
+    public Invalid(String name) {
+        super(name);
     }
 
     @Override

@@ -1,8 +1,8 @@
 package plays;
 
 public class Comedy extends Play {
-    public Comedy(String name, String type) {
-        super(name, type);
+    public Comedy(String name) {
+        super(name);
     }
 
     @Override

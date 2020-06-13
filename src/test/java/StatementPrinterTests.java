@@ -16,9 +16,9 @@ public class StatementPrinterTests {
     @Test
     public void exampleStatement() {
         Map<String, Play> plays = new HashMap<String, Play>() {{
-            put("hamlet", new Tragedy("Hamlet", "tragedy"));
-            put("as-like", new Comedy("As You Like It", "comedy"));
-            put("othello", new Tragedy("Othello", "tragedy"));
+            put("hamlet", new Tragedy("Hamlet"));
+            put("as-like", new Comedy("As You Like It"));
+            put("othello", new Tragedy("Othello"));
         }};
 
         Invoice invoice = new Invoice("BigCo", Arrays.asList(
@@ -37,8 +37,8 @@ public class StatementPrinterTests {
     public void statementWithNewPlayTypes() {
 
         Map<String, Play> plays = new HashMap<String, Play>() {{
-            put("henry-v", new Invalid("Henry V", "history"));
-            put("as-like", new Invalid("As You Like It", "pastoral"));
+            put("henry-v", new Invalid("Henry V"));
+            put("as-like", new Invalid("As You Like It"));
         }};
 
         Invoice invoice = new Invoice("BigCo", Arrays.asList(
