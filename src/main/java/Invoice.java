@@ -24,17 +24,13 @@ public class Invoice {
     }
 
     public String print() {
-        int totalAmount = 0;
-        int volumeCredits = 0;
         StringBuilder result = new StringBuilder(String.format(INVOICE_HEADER, customer));
 
         for (Performance perf : performances) {
             int thisAmount = perf.getAmount();
-            volumeCredits += perf.getVolumeCredits();
 
             result.append(String.format(
                     INVOICE_LINE, perf.play.name, NUMBER_FORMAT.format(thisAmount / 100), perf.audience));
-            totalAmount += thisAmount;
         }
         result.append(String.format(INVOICE_FOOTER, NUMBER_FORMAT.format(performancesClass.getTotalAmount() / 100), performancesClass.getTotalVolumeCredits()));
         return result.toString();
