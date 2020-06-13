@@ -24,8 +24,7 @@ public class StatementPrinterTests {
                 new Performance("othello", 40)
         ));
 
-        StatementPrinter statementPrinter = new StatementPrinter();
-        String result = statementPrinter.print(invoice, plays);
+        String result = invoice.print(plays);
 
         verify(result);
     }
@@ -42,9 +41,8 @@ public class StatementPrinterTests {
                 new Performance("henry-v", 53),
                 new Performance("as-like", 55)));
 
-        StatementPrinter statementPrinter = new StatementPrinter();
         Assert.assertThrows(Error.class, () -> {
-            statementPrinter.print(invoice, plays);
+            invoice.print(plays);
         });
     }
 }
