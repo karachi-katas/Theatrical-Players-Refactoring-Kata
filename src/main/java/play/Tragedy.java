@@ -3,8 +3,11 @@ package play;
 public class Tragedy extends Play {
 
     public Tragedy(String name) {
-        super(name, "tragedy");
+        super(name, PLAY_TYPE);
     }
+
+    private final static int BONUS_MAX_AUDIENCE_AMOUNT = 30;
+    private final static String PLAY_TYPE = "tragedy";
 
     @Override
     public int getAmount(int audience) {
@@ -15,7 +18,7 @@ public class Tragedy extends Play {
 
     @Override
     public int addBonus(int audience) {
-        return 1000 * (audience - 30);
+        return 1000 * (audience - BONUS_MAX_AUDIENCE_AMOUNT);
     }
 
     @Override

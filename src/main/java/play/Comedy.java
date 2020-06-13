@@ -3,8 +3,12 @@ package play;
 public class Comedy extends Play {
 
     public Comedy(String name) {
-        super(name, "comedy");
+        super(name, PLAY_TYPE);
     }
+
+    private final static int BONUS_MAX_AUDIENCE_AMOUNT = 20;
+    private final static int MINIMUM_VOLUME_CREDIT_THRESHOLD = 30;
+    private final static String PLAY_TYPE = "comedy";
 
     @Override
     public int getAmount(int audience) {
@@ -21,14 +25,14 @@ public class Comedy extends Play {
 
     @Override
     public boolean isAudienceLarge(int audience) {
-        return audience > 20;
+        return audience > BONUS_MAX_AUDIENCE_AMOUNT;
     }
 
     @Override
     public int getVolumeCredits(int audience) {
-        int volumeCredits = Math.max(audience - 30, 0);
+        int volumeCredits = Math.max(audience - MINIMUM_VOLUME_CREDIT_THRESHOLD, 0);
         // add extra credit for every ten comedy attendees
-        volumeCredits += Math.floor(audience / 5);
+        volumeCredits += Math.floor(audience / 5.00);
         return volumeCredits;
     }
 
